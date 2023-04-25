@@ -1,39 +1,38 @@
 import Jetson.GPIO as GPIO
 import time
 
-# Define GPIO pins used to toggle each LED color
-LED_PINS = {"red":149,"green":194,"white":216}
-
 # Set up the GPIO pins
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
+
+# Define GPIO pins used to toggle each LED color
+LED_PINS = {"red": 29, "green": 15, "white": 7}
+channels = [LED_PINS["red"], LED_PINS["green"], LED_PINS["white"]]
+GPIO.setup(channels, GPIO.OUT)
 
 def turn_on(color):
     if color not in LED_PINS:
         raise ValueError("LED color must be one of %r." % LED_PINS)
     else:
-        GPIO.setup(LED_PINS(color), GPIO.OUT)
-        GPIO.output(LED_PINS(color), GPIO.HIGH)
+        GPIO.output(LED_PINS[color], GPIO.HIGH)
 
 def turn_off(color):
     if color not in LED_PINS:
         raise ValueError("LED color must be one of %r." % LED_PINS)
     else:
-        GPIO.setup(LED_PINS(color), GPIO.OUT)
-        GPIO.output(LED_PINS(color), GPIO.LOW)
+        GPIO.output(LED_PINS[color], GPIO.LOW)
 
 def pulse(color):
     if color not in LED_PINS:
         raise ValueError("LED color must be one of %r." % LED_PINS)
     else:
-        GPIO.setup(LED_PINS(color), GPIO.OUT)
-        GPIO.output(LED_PINS(color), GPIO.HIGH)
+        GPIO.output(LED_PINS[color], GPIO.HIGH)
         time.sleep(0.1)
-        GPIO.output(LED_PINS(color), GPIO.LOW)
+        GPIO.output(LED_PINS[color], GPIO.LOW)
 
 # Test the module
 if __name__ == '__main__':
-    # Set the pin numbers
+    # Set the led values
     led1 = "red"
     led2 = "green"
     led3 = "white"
